@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+{% include "messages.html" %}
+{% if brands %}
+     <h1 style="text-align: center;">Brands Page</h1>
+{% else %}
+  <h1 style="text-align: center;">Categories Page</h1>
+{% endif %}
+   
+    <div class="container ">
+        <table class="table table-sm table-condensed table-striped table-hover mt-5">
+            <thead>
+                <th>SL</th>
+                {% if brands %}
+                <th>Brand Name</th>
+                {% else %}
+                <th>Category Name</th>
+                {% endif %}
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                {% if brands %}
+                {% for brand in brands %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{brand.name}}</td>
+ 
+                    <td><a class="btn btn-info" href="{{ url_for('updatebrand',id=brand.id)}}">Edit</a></td>
+                    <td>
+                       
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{brand.id}}">Delete</button>                  </td>
+                </tr>
+               
+                <div class="modal" id="exampleModal-{{brand.id}}" tabindex="-1">
+                    <br>
+                    <br>
+                    <br>
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                         
+                          <h5 class="modal-title" id="exampleModalLabel">{{ brand.name }}</h5>
+                          <form action="{{url_for('brands')}}" >
+                        <button type="submit" class="btn-close btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                            &times;
+                        </button>
+                        </form>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure want to delete this {{brand.name }} brand?</p>
+                        </div>
+                        <div class="modal-footer">
+                        <form action="{{url_for('brands')}}" >
+                          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </form>
+                          <form action="{{url_for('deletebrand',id=brand.id)}}" method="POST">
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+                {% else %}
+
+                {% for category in categories %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{category.name}}</td>
+ 
+                    <td><a class="btn btn-info" href="{{ url_for('updatecat',id=category.id)}}">Edit</a></td>
+                    <td> <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{category.id}}">Delete</button>                 
+                     </td>
+                </tr>
+                <div class="modal" id="exampleModal-{{category.id}}" tabindex="-1">
+                    <br>
+                    <br>
+                    <br>
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                         
+                          <h5 class="modal-title" id="exampleModalLabel">{{ category.name }}</h5>
+                          <form action="{{url_for('category')}}" >
+                        <button type="submit" class="btn-close btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                            &times;
+                        </button>
+                        </form>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure want to delete this {{category.name }} category?</p>
+                        </div>
+                        <div class="modal-footer">
+                        <form action="{{url_for('category')}}" >
+                          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </form>
+                          <form action="{{url_for('deletecategory',id=category.id)}}" method="POST">
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+ {% endblock %}

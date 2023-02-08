@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<br>
+<br>
+<br>
+
+{% include 'messages.html' %}
+<main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+
+    <div class="content-section">
+        <form method="POST" action="">
+          <div class="container fluid">
+               <fieldset class="form-group">
+                   
+                <legend class="border-bottom mb-4"><h3 style="color:darkblue;text-align: center;"><b>Log in </b> </h3></legend>
+                
+       
+
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                
+                
+                
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-dark") }}
+                </div>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Create new Account? <a class="ml-2" href="{{ url_for('register') }}">Sign up</a>
+                    </small>
+                </div>
+
+              </fieldset>
+            
+           </div>
+        </form>
+    </div>
+   
+</div>
+</div>
+</main>
+{% endblock content %}

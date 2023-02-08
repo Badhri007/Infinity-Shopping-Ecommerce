@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<br>
+<br>
+<br>    
+<br>
+{% include 'messages.html' %}
+
+
+{% if current_user.email =='admin@blog.com' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            
+            
+            <div class="col-md-6">
+           
+                {% if category %}
+                <h1> Add a Category</h1>
+                <form action="" method="POST">
+                    <input type="text" name="category" class_="form-control"><br>
+                    <input type="submit" value="Add Category" class="btn btn-info mt-2">
+                </form>
+               
+                {% else %}
+                <h1> Add a Brand</h1>
+                <form action="" method="POST">
+                    <input type="text" name="brand" class_="form-control"><br>
+                    <button type="submit" value="Add Brand" class="btn btn-info mt-2">Add Brand</button>
+                </form>
+                {% endif %}
+
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+{% else %}
+  <h1 style="text-align: center;"> Only Admin can access this page  !!!</h1>
+
+
+
+{% endif %}
+{% endblock content %}
