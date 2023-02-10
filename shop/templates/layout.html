@@ -5,7 +5,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  
+    <!-- <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            }
+          }
+        }
+      }
+    </script> -->
+     <!-- <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+      } -->
+    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,14 +35,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
-<body id="formfoot">
+<body >
     <header class="site-header">
-      <nav class="navbar navbar-expand navbar-dark  fixed-top" id="navbar" style="background-color: rgb(172, 36, 65);">
-        <div class="container">
+      <nav class="navbar navbar-expand-md navbar-light  fixed-top" style="background-color: #FFDEE9;
+      background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);">
+        
           <a class="navbar-brand mr-4 " href="{{url_for('admin')}}">Carter</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+          <a class="navbar-toggler" id="tog" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation" style="color:black;">
+            <span class="navbar-toggler-icon" style="padding-right: 30%;"></span>
+          </a>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link mb-1" href="/">Home</a>
@@ -52,7 +71,7 @@
             </li>
             </div>
            {% endif %}
-           <div>
+          
             <div class="navbar-nav ">
               {% if current_user.is_authenticated  and current_user.email=='admin@blog.com' %}
                  <a class="nav-item nav-link  " href="{{url_for('addproduct')}}"> Add Product</a> 
@@ -72,19 +91,28 @@
                  {% endif %} 
 
 
-
+<!-- 
                 <form method="POST" action="{{url_for('result')}}" class="d-flex" >
                  
                   <input class="form-control me-2" type="search" placeholder="Search products" aria-label="Search" name="searched">
                   <button class="btn btn-success text-white ml-2" type="submit">Search</button>
+                </form> -->
+
+                <form method="POST" action="{{url_for('result')}}" class="d-flex" style="width:100%">
+                   
+                  <input style="height:37px;border-radius: 7px;background-color: lightgray;" class="form-control" type="search" placeholder="Search Products" aria-label="Search" name="searched">
+                  <button class="btn text-white ml-2"  type="submit" style="height:37px;background-color: #21D4FD;
+                  background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+                  
+                  ">Search</button>
                 </form>
              
             </div>
           </div>
-        </div>
-        </div>
+       
+      
       </nav>
-    </header>
+    </header >
  
       
           {% block content %} 
@@ -99,8 +127,4 @@
 </body>
 </html>
 
-<style>
-  #navbar {
-  z-index: 9999;
-}
-</style>
+

@@ -4,76 +4,144 @@
 <br>
 <br>
 <br>
+<br>    
     {% include "messages.html" %}
    
-    <div class="container ">
-        <div class="row">
-            <div class="col-md-12">
-        <table class="table table-sm table-condensed table-striped mt-5">
-            <thead>
-                <th>S.no</th>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Color</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Discount</th>
-                <th>SubTotal</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </thead>
-            <tbody>
-                {% for key,product in session['Shoppingcart'].items() %}
-                {% set discount="%0.2f" | format((product.discount/100)*product.price|float)%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td><img src="{{url_for('static',filename='images/'+product.image)}}" alt="{{product.name}}" width='45' height='45'></td>
-                    <td>{{product.name}}</td>
-                 <form action="{{url_for('updatecart',code=key)}}" method="post">
-                    <td>
-                      
-                        {% set colors= product.colors.split(',') %}
-                      
-                        <select name="color" id="color">
-                            <option value="{{product.color}}" style="display:none">{{product.color|capitalize}}</option>
-                            {% for color in colors %}
-                            {% set col= color.split(':')%}
-                            <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
-                            {% endfor %}
-                        </select>
-                    
-                    
-                    </td>
-                    <td>${{product.price}}</td>
-                    <td><input type="number" name="quantity" min="1" max="10" value="{{product.quantity}}"></td>
-                    {% if product.discount>0 %}
-                    <td>{{product.discount}}%  => {{discount}}</td>
-                    {% else %}
-                    <td> - </td>
-                    {% endif %}
-                    {% set subtotal =product.quantity|int*product.price|float %}
-                    <td>{{"%0.2f" | format((subtotal|float)-discount|float)}}</td>
-                    <td><button type="submit" class="btn btn-info">Update</button></td>
-                </form>
-                    <td><a href="{{url_for('deleteitem',id=key)}}"  class="btn btn-danger">Remove</a> </td>
-                   
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <table class="table table-sm">
-                <tr>
-                  <td><a class="btn btn-success" href="{{url_for('get_order')}}">Order Now</a></td>
+<div>
+    <h3 style="text-align: center; color:rgb(168, 22, 78)">Cart Products</h3>
+    <hr style="height:1px;border-width:0;color:gray;background-color:gray" id="po">
+        {% for key,product in session['Shoppingcart'].items() %}
+     <form action="{{url_for('updatecart',code=key)}}" method="post"  class=" formGrid" style="text-align: center;align-items: center;justify-content: space-evenly;">
+         
+     <!-- <div class=""> -->
+        <!-- <div style="display: flex;"> -->
+        <div class="" >
+            <h6> Product.no </h6>
+            
+             {{loop.index}}
+                 
+        </div>
+        <div class="" >
+           
+           <img src="{{url_for('static',filename='images/'+product.image)}}" alt="{{product.name}}" class="productImg" >   
+        </div>
+    <!-- </div> -->
+    
+       <!-- <div class="" style="display: flex;"> -->
+        <div class="divCont" >
+            <h6>Product</h6>
+            
+             {{product.name}}
+                 
+         </div>
+       <!-- </div>
+       <div class=""> -->
+          <div class="divCont" >
+              <h6>Colors</h6>
+             
+              {% set colors= product.colors.split(',') %}            
+              <select name="color" id="color">
+                  <option value="{{product.color}}" style="display:none">{{product.color|capitalize}}</option>
+                  {% for color in colors %}
+                  {% set col= color.split(':')%}
+                  <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                  {% endfor %}
+              </select>   
                 
-                  <td width="35%"></td>
-                  <td ><h5> Tax: ${{tax}}</h5></td>
-                  <td ><h5>Grandtotal : ${{grandtotal}}</h5></td>
-                  <td><a href="{{url_for('clearcart')}}" class="btn btn-secondary btn-sm float-right mr-4">Clear cart</a></td>
-                </tr>
-            </table> 
-      </div>
-      </div>
-      </div>
+           </div>
+        <!-- </div> -->
+        <!-- <div class="" style="display: flex;"> -->
+           <div class="divCont1">
+              <h6>Price</h6>
+              
+               ${{product.price}}
+                   
+           </div>
+       
+    
+         <div class="divCont1">
+                <h6>Quantity</h6>
+                
+                 <input type="number" name="quantity" min="1" max="10" value="{{product.quantity}}">   
+         </div>
+     <!-- </div> -->
+     <!-- <div class="" style="display: flex;"> -->
+        <div class="divCont1">
+            <h6>Discount</h6>
+            
+             {% set discount="%0.2f" | format((product.discount/100)*product.price|float)%}
+             {% if product.discount>0 %}
+             {{product.discount}}%  => {{discount}}
+             {% else %}
+              - 
+             {% endif %}
+        </div>
+
+        <div class="divCont1">
+               <h6>Subtotal</h6>
+             {% set subtotal =product.quantity|int*product.price|float %}
+             {{"%0.2f" | format((subtotal|float)-discount|float)}}
+         </div>      
+    <!-- </div> -->
+
+
+    
+         <div class="divCont">
+           <h6>Update</h6>
+            
+             <button type="submit" class="btn btn-sm btn-info">Update</button>
+                 
+         </div>
+         <div class="divCont" >
+             <h6>Delete</h6>
+            
+             <a href="{{url_for('deleteitem',id=key)}}"  class="btn btn-sm  btn-danger">Remove</a>
+             
+         </div>
+           
+    <br>
+    
+
+     </form>
+     <hr style="height:1px;border-width:0;color:gray;background-color:gray" id="po">    
+      <br>
+     {% endfor %}
+  
+     <div style="display: flex;justify-content: space-evenly;" id="bot">
+ 
+     <div>
+        <h5> Tax: ${{tax}}</h5>
+     </div>
+     <div>
+        <h5>Grandtotal : ${{grandtotal}}</h5>
+       
+     </div>
+     </div>
+    <div style="display: flex;justify-content: space-evenly;">
+     <div>
+        <a href="{{url_for('clearcart')}}" class="btn btn-secondary">Clear cart</a>
+     </div> 
+     <div >
+        <a class="btn btn-success" href="{{url_for('get_order')}}">Order Now</a>
+     </div>
+      
+    </div>
+    </div>
+</div>
+
+<style>
+    h6{
+        color:blue;
+    }
+</style>
+    
+      
+              
+                
+                
+         
+        
+     
 
       {% endblock content %}
 

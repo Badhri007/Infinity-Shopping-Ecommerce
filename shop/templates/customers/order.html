@@ -4,10 +4,12 @@
 <br>
 <br>
 <br>
+<br>
     {% include "messages.html" %}
    
     <div class="container ">
         <div class="row">
+            <br>
             <h1 style="text-align: center;"> Order Invoice Details</h1>
             <div class="col-md-12" style="background-color: white;">
                 <br>
@@ -22,8 +24,109 @@
                 <b> Customer email : </b>{{customer.email}}
                 <br>
                 <b>Contact : </b>{{customer.contact}}
-        <table class="table table-sm table-condensed table-striped mt-5">
-            <thead>
+                
+
+
+
+
+
+                   
+<div>
+    <br>
+    <h3 style="text-align: center; color:rgb(168, 22, 78)">Ordered Items</h3>
+    <hr style="height:1px;border-width:0;color:gray;background-color:gray" id="po">
+    {% for _key,product in orders.orders.items() %}
+    {% set discount="%0.2f" | format((product.discount/100)*product.price|float)%}
+     <div  class=" formGrid" style="text-align: center;align-items: center;justify-content: space-evenly;">
+         
+     <!-- <div class=""> -->
+        <!-- <div style="display: flex;"> -->
+        <div class="" >
+            <h6> Product.no </h6>
+            
+             {{loop.index}}
+                 
+        </div>
+       
+    <!-- </div> -->
+    
+       <!-- <div class="" style="display: flex;"> -->
+        <div class="divCont" >
+            <h6>Product</h6>
+            
+             {{product.name}}
+                 
+         </div>
+       <!-- </div>
+       <div class=""> -->
+          <div class="divCont" >
+              <h6>Colors</h6>
+             
+              {{product.color|capitalize}}  
+                
+           </div>
+        <!-- </div> -->
+        <!-- <div class="" style="display: flex;"> -->
+           <div class="divCont1">
+              <h6>Price</h6>
+              
+               ${{product.price}}
+                   
+           </div>
+       
+    
+         <div class="divCont1">
+                <h6>Quantity</h6>
+                
+                 {{product.quantity}}  
+         </div>
+     <!-- </div> -->
+     <!-- <div class="" style="display: flex;"> -->
+        <div class="divCont1">
+            <h6>Discount</h6>
+            
+             {% set discount="%0.2f" | format((product.discount/100)*product.price|float)%}
+             {% if product.discount>0 %}
+             {{product.discount}}%  => {{discount}}
+             {% else %}
+              - 
+             {% endif %}
+        </div>
+
+        <div class="divCont1">
+               <h6>Subtotal</h6>
+             {% set subtotal =product.quantity|int*product.price|float %}
+             {{"%0.2f" | format((subtotal|float)-discount|float)}}
+         </div>      
+    <!-- </div> -->
+
+
+    
+         
+           
+    <br>
+    
+
+        </div>
+     <hr style="height:1px;border-width:0;color:gray;background-color:gray" id="po">    
+      <br>
+     {% endfor %}
+  
+     <div style="display: flex;justify-content: space-evenly;" id="bot">
+ 
+     <div>
+        <h5> Tax: ${{tax}}</h5>
+     </div>
+     <div>
+        <h5>Grandtotal : ${{grandTotal}}</h5>
+       
+     </div>
+
+   
+    </div>
+</div>
+        <!-- <table id="tb">
+            <tr>
                 <th>S.no</th>
                 <th>Product</th>
                 <th>Color</th>
@@ -32,11 +135,11 @@
                 <th>Discount</th>
                 <th>SubTotal</th>
 
-            </thead>
-            <tbody>
+            </tr>
+            <tr>
                 {% for _key,product in orders.orders.items() %}
                 {% set discount="%0.2f" | format((product.discount/100)*product.price|float)%}
-                <tr>
+                <tr >
                     <td>{{loop.index}}</td>
                     <td>{{product.name}}</td>
                  
@@ -57,11 +160,10 @@
                    
                 </tr>
                 {% endfor %}
-            </tbody>
-        </table>
-        <table class="table table-sm">
-                <tr>
-                  <td> 
+                </tr>
+        </table> -->
+        <!-- </div> -->
+        
                     
                     {% if orders.status =="Paid" %}
                     {% else %}
@@ -80,22 +182,19 @@
                           </script>
                       </form>
                  {% endif %}
-                  </td>
+                  
                 
-                  <td width="35%"></td>
-                  <td ><h5> Tax: ${{tax}}</h5></td>
-                  <td ><h5>Grandtotal : ${{grandTotal}}</h5></td>
-                  <td>
-                    {% if orders.status == 'Paid'%}
-                    <form action="{{url_for('get_pdf',invoice=orders.invoice)}}" method="POST">
-                        <button type="submit" class="btn btn-danger">Download PDF</button>
+                
+                {% if orders.status == 'Paid'%}
+                    <form>
+                    <input type=button value="Download PDF" onClick="javascript:window.print()" class="btn btn-danger">
                     </form>
-                    {% else %}
-                    {% endif %}
+                {% else %}
+            {% endif %}
                  
-                </td>
-                </tr>
-            </table> 
+                
+             
+            
       </div>
       </div>
       </div>
