@@ -27,10 +27,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/carticon.png">
     {% if title %}
-        <title>Carter - {{ title }}</title>
+        <title>Infinity- {{ title }}</title>
     {% else %}
-        <title>Carter</title>
+        <title>Infinity</title>
     {% endif %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -39,16 +40,17 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light  fixed-top" style="background-color: #FFDEE9;
       background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);">
-        
+        <img src="{{url_for('static',filename='/carticons.png')}}" style="height:45px;width:50px;background-color: #FFDEE9;
+          background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);padding-right:10px;margin-right:5px;"></img>
           <a class="navbar-brand mr-4 " href="{{url_for('admin')}}">Carter</a>
           <a class="navbar-toggler" id="tog" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation" style="color:black;">
             <span class="navbar-toggler-icon" style="padding-right: 30%;"></span>
           </a>
-          <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link mb-1" href="/">Home</a>
               <a class="nav-item nav-link mb-1 " href="{{url_for('getCart')}}">Cart({{session['Shoppingcart']|length}})</a>
-              {% if brands %}
+            {% if brands %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Brands</a>
       
@@ -58,8 +60,8 @@
                   {% endfor %}
                 </div>
               </li>
-              {% endif %}
-              {% if categories %}
+             {% endif %}
+             {% if categories %} 
               <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
     
@@ -69,22 +71,42 @@
                 {% endfor %}
               </div>
             </li>
-            </div>
-           {% endif %}
+            {% endif %}
+        </div>
+          
           
             <div class="navbar-nav ">
               {% if current_user.is_authenticated  and current_user.email=='admin@blog.com' %}
-                 <a class="nav-item nav-link  " href="{{url_for('addproduct')}}"> Add Product</a> 
-                  <a class="nav-item nav-link mb-1 " href="{{url_for('brands')}}">Brands</a>     
-                  <a class="nav-item nav-link mb-1 " href="{{url_for('category')}}">Categories</a>          
+                 <!-- <a class="nav-item nav-link  " href="{{url_for('addproduct')}}"> Add Product</a>  -->
+                  <a class="nav-item nav-link mb-1 " href="{{url_for('brands')}}">Brand</a>     
+                  <a class="nav-item nav-link mb-1 " href="{{url_for('category')}}">Category</a>  
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</a>
+          
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      
+                      <a class="nav-item nav-link  " href="{{url_for('addproduct')}}"> Add Product</a> 
+                      <a class="nav-item nav-link mb-1 " href="{{url_for('addbrand')}}">Add Brand</a>     
+                      <a class="nav-item nav-link mb-1 " href="{{url_for('addcat')}}">Add Category</a>  
+                      
+                    </div>
+                  </li>
+                  
+
+
+
                   <a class="nav-item nav-link " href="{{url_for('customerlogout')}}">Logout</a>
-                  <a class="nav-item nav-link mr-3 " href="{{url_for('account')}}">My Dashboard</a>
+                  <a class="nav-item nav-link  " href="{{url_for('account')}}">Dashboard</a>
               {% elif current_user.is_authenticated %}
+              <div class="float-right">
               <a class="nav-item nav-link  " href="{{url_for('customerlogout')}}">Logout</a>
-              <a class="nav-item nav-link mr-3 " href="{{url_for('account')}}">My Dashboard</a>
+            </div>
+              <div class="float-right">
+              <a class="nav-item nav-link " href="{{url_for('account')}}">Dashboard</a>
+              </div>
               {% else %}
                  <a class="nav-item nav-link " href="{{ url_for('customerlogin') }}">Login</a>
-                 <a class="nav-item nav-link mr-3" href="{{ url_for('customer_register') }}">Register</a>
+                 <a class="nav-item nav-link " href="{{ url_for('customer_register') }}">Register</a>
 
                 
 
@@ -97,7 +119,7 @@
                   <input class="form-control me-2" type="search" placeholder="Search products" aria-label="Search" name="searched">
                   <button class="btn btn-success text-white ml-2" type="submit">Search</button>
                 </form> -->
-
+                <div class="float-right">
                 <form method="POST" action="{{url_for('result')}}" class="d-flex" style="width:100%">
                    
                   <input style="height:37px;border-radius: 7px;background-color: lightgray;" class="form-control" type="search" placeholder="Search Products" aria-label="Search" name="searched">
@@ -106,6 +128,7 @@
                   
                   ">Search</button>
                 </form>
+              </div>
              
             </div>
           </div>

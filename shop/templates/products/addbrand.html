@@ -17,18 +17,29 @@
             <div class="col-md-6">
            
                 {% if category %}
+                <div style="background-color: azure;text-align: center;border-radius: 10px;color:brown">
                 <h1> Add a Category</h1>
+                <br>
                 <form action="" method="POST">
                     <input type="text" name="category" class_="form-control"><br>
-                    <input type="submit" value="Add Category" class="btn btn-info mt-2">
+                    <br>
+                    <input type="submit" value="Add Category" class="btn btn-success mt-2">
                 </form>
+                <br>
+                </div>
                
                 {% else %}
+                <div style="background-color: azure;text-align: center;border-radius: 10px;color:brown">
                 <h1> Add a Brand</h1>
+                <br>
                 <form action="" method="POST">
-                    <input type="text" name="brand" class_="form-control"><br>
-                    <button type="submit" value="Add Brand" class="btn btn-info mt-2">Add Brand</button>
+                    <input type="text" name="brand" class_="form-control">
+                    <br>
+                    <button type="submit" value="Add Brand" class="btn btn-success mt-2">Add Brand</button>
+                    
                 </form>
+                <br>    
+            </div>
                 {% endif %}
 
             </div>

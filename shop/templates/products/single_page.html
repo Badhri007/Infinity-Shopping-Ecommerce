@@ -2,17 +2,22 @@
 {% block content %}
 <br>
 <br>
-
-<div style="background-color: white;">
-<div class="container mt-5">
+<br>
+<div >
+<div class="container mt-5" style="background-color: white; border-radius: 10px;">
     <div class="row">
         
-        <div class="col-md-6" id="b_image">
+        <div class="col-md-6"  id="b_image">
+            <br>
+        
             <img src="{{url_for('static',filename='images/'+product.image_1)}}" alt="{{product.name}}" width="300" height="300" style="cursor:pointer">
+
+        
         </div>
+        <!-- <h5 >More Images</h5> -->
         <div class="col-md-6">
             <br>
-            <h3>{{product.name}}</h3>
+            <h3 style="color:red">{{product.name}}</h3>
             <hr>
             <p><b>Price :</b> ${{product.price}}</p>
             <hr>
@@ -25,7 +30,7 @@
             
             <form action="{{url_for('AddCart')}}" method="post">
                 <input type="hidden" name="product_id" value="{{product.id}}">
-                <button type="submit" class="btn btn-sm btn-success">Add to Cart</button>
+                
                 <label for="">Quantity :</label>
                 <input type="number" name="quantity" id="" value="1" min="1" max="{{product.stock}}">
                 {% set colors= product.colors.split(',') %}
@@ -36,19 +41,25 @@
                     <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
                     {% endfor %}
                 </select>
-                
+                <br>
+                <hr>
+                <br>
+                <button type="submit" class="btn btn btn-success" style="text-align: center;">Add to Cart</button>
+                <hr>
             </form>
 
         </div>
     </div>
-   
     <div class="row">
+        
         <div class="col-md-12" id="s_image">
-            <img src="{{url_for('static',filename='images/'+product.image_1)}}" alt="{{product.name}}" width="120" height="120" style="cursor:pointer" class="mr-2">
-            <img src="{{url_for('static',filename='images/'+product.image_2)}}" alt="{{product.name}}" width="120" height="120" style="cursor:pointer" class="mr-2">
-            <img src="{{url_for('static',filename='images/'+product.image_3)}}" alt="{{product.name}}" width="120" height="120" style="cursor:pointer" class="mr-2">
+            <img src="{{url_for('static',filename='images/'+product.image_1)}}" alt="{{product.name}}" width="120" height="120" style="cursor:pointer;border-radius: 10px;" class="mr-2">
+            <img src="{{url_for('static',filename='images/'+product.image_2)}}" alt="{{product.name}}" width="120" height="120" style="cursor:pointer;border-radius: 10px;" class="mr-2">
+            <img src="{{url_for('static',filename='images/'+product.image_3)}}" alt="{{product.name}}" width="120" height="120" style="cursor:pointer;border-radius: 10px;" class="mr-2">
         </div>
     </div>
+    
+  
 <br>
 
 

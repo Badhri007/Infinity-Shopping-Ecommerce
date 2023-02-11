@@ -7,13 +7,13 @@
 <br>
 {% include "messages.html" %}
 {% if brands %}
-     <h1 style="text-align: center;">Brands Page</h1>
+     <h1 style="text-align: center;background-color: azure;border-radius: 10px;" class="container">Brands Page</h1>
 {% else %}
-  <h1 style="text-align: center;">Categories Page</h1>
+  <h1 style="text-align: center;background-color: azure;border-radius: 10px;" class="container">Categories Page</h1>
 {% endif %}
    
     <div class="container ">
-        <table class="table table-sm table-condensed table-striped table-hover mt-5">
+        <table class="table table-sm  table-striped table-hover mt-5">
             <thead>
                 <th>SL</th>
                 {% if brands %}

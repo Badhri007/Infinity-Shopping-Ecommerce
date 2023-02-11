@@ -7,11 +7,12 @@
 <br>
     {% include "messages.html" %}
    
-    <div class="container ">
-        <div class="row">
+    <div class="container" >
+        <div class="row" style="border-radius:10px;">
             <br>
-            <h1 style="text-align: center;"> Order Invoice Details</h1>
-            <div class="col-md-12" style="background-color: white;">
+            
+            <div class="col-md-12" style="background-color: white;border-radius:10px;">
+                <h1 style="text-align: center;"> Order Invoice Details</h1>
                 <br>
                 <b> Invoice : </b>{{orders.invoice}}
                 <br>
@@ -33,7 +34,7 @@
                    
 <div>
     <br>
-    <h3 style="text-align: center; color:rgb(168, 22, 78)">Ordered Items</h3>
+    
     <hr style="height:1px;border-width:0;color:gray;background-color:gray" id="po">
     {% for _key,product in orders.orders.items() %}
     {% set discount="%0.2f" | format((product.discount/100)*product.price|float)%}
@@ -182,6 +183,7 @@
                           </script>
                       </form>
                  {% endif %}
+                  <br>
                   
                 
                 

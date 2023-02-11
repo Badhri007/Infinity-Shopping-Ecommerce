@@ -9,8 +9,8 @@ from .models import Register ,CustomerOrder
 from werkzeug.utils import secure_filename
 from PIL import Image
 import stripe
-import pdfkit
-config = pdfkit.configuration(wkhtmltopdf="C:\\Users\\Welcome\\wkhtml\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+
+
 publishable_key='pk_test_51MVs0UFnmLrzDL1peeKWHAlRI0D4fDQ7IvHMQqLwTeJ1UabD1NCC6CQHLiF9KukTHloA2pjaB1sAjy9PRcDnj3jQ00huOtinMZ'
 stripe.api_key='sk_test_51MVs0UFnmLrzDL1pdJ6nJfIf6E4IZwpkdViMbEHgy6pyJh9MGVWEpYiBcGHXRXurBlIQQ1thUZ3bE53YAwfEBHZe004nEFkhVH'
 
@@ -181,30 +181,3 @@ def orders(invoice):
         return render_template('customers/order.html',invoice=invoice,tax=tax,subTotal=subTotal,grandTotal=grandTotal,customer=customer,orders=orders)
             
 
-@app.route('/get_pdf/<invoice>',methods=['POST'])
-@login_required
-def get_pdf(invoice):
-        if current_user.is_authenticated:
-                grandTotal=0
-                subTotal=0
-                customer_id=current_user.id
-                print(customer_id)
-                if request.method == 'POST':
-                    customer=Register.query.filter_by(id=customer_id).first()
-                    print(customer.name)
-                    orders=CustomerOrder.query.filter_by(customer_id=customer_id).order_by(CustomerOrder.id.desc()).first()
-                    print(orders)
-                    for _key,product in orders.orders.items():
-                            discount=(product['discount']/100) * float(product['price'])
-                            subTotal+=float(product['price'])*int(product['quantity'])
-                            subTotal-=discount
-                            tax=("%0.2f"%(.06 * float(subTotal)))
-                            grandTotal=("%.2f" %(1.06 *float(subTotal)))
-        
-                    rendered= render_template('customers/pdf.html',invoice=invoice,tax=tax,grandTotal=grandTotal,customer=customer,orders=orders)
-                    pdf=pdfkit.from_string( rendered, configuration=config)
-                    response=make_response(pdf)
-                    response.headers['content-Type']='application/pdf'
-                    response.headers['content-Disposition']='inline: filename='+invoice+'.pdf'
-                    return response
-        return request(url_for('orders'))

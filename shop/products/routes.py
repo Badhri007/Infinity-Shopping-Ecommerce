@@ -225,23 +225,23 @@ def addproduct():
             category=request.form['category']
             
             category_id=Category.query.filter_by(name=category).one().id
-            flash(f'{category_id} is category')
+            # flash(f'{category_id} is category')
 
             image_1=request.files['image_1']
             flash(f'{image_1.filename} is image 1')
             if image_1:
                 image_1 = save_meme(image_1)
-                flash(f'{image_1} is Image1')
+                # flash(f'{image_1} is Image1')
 
             image_2=request.files['image_2']
             if image_2 :
                 image_2 = save_meme(image_2)
-                flash(f'{image_2} is Image2')
+                # flash(f'{image_2} is Image2')
 
             image_3=request.files['image_3']
             if image_3 :
                 image_3 = save_meme(image_3)
-                flash(f'{image_3} is Image3')
+                # flash(f'{image_3} is Image3')
       
              
 

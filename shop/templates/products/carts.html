@@ -7,7 +7,8 @@
 <br>    
     {% include "messages.html" %}
    
-<div>
+<div style="background-color: white; border-radius:10px"  class="container">
+    <br>
     <h3 style="text-align: center; color:rgb(168, 22, 78)">Cart Products</h3>
     <hr style="height:1px;border-width:0;color:gray;background-color:gray" id="po">
         {% for key,product in session['Shoppingcart'].items() %}
@@ -126,6 +127,8 @@
      </div>
       
     </div>
+    <br>
+      <br>
     </div>
 </div>
 
