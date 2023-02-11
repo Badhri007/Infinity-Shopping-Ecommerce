@@ -1,7 +1,15 @@
-<h1 style="text-align: center;">Thank You for Shopping with us !!!</h1>
-{{orders.invoice}}
+
+{% extends "layout.html"%}
+{% block content%}
+<br>
+<br>
+<br>
+<h1 style="text-align: center;background-color:white" class="container">Thank You for Shopping with us !!!</h1>
+
 <form action="{{url_for('orders',invoice=orders.invoice)}}" methods="POST" >
     <div class="d-flex justify-content-center">
-    <button type="submit" class="btn btn-secondary float-sm-right">View Products</button>
+    <button type="submit" class="btn btn-secondary float-sm-right">Go to Orders</button>
   </div>
 </form>
+
+{% endblock content %}
